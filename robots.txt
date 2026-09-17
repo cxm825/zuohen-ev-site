@@ -1,0 +1,4 @@
+﻿User-agent: *
+Allow: /
+Sitemap: https://tarycharge-ev-site-web-2026.pages.dev/sitemap.xml
+
