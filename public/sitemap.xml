@@ -1,24 +1,28 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/</loc></url>
-  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/products.html</loc></url>
-  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/solutions.html</loc></url>
-  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/about.html</loc></url>
-  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/contact.html</loc></url>
-  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/ac-ev-charger-manufacturer.html</loc></url>
-  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/dc-fast-charging-station-supplier.html</loc></url>
-  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/portable-ev-charger-guide.html</loc></url>
-  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/ev-charging-adapter-supplier.html</loc></url>
-  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/ccs2-to-gbt-adapter-guide.html</loc></url>
-  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/nacs-ev-adapter-guide.html</loc></url>
-  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/type-1-vs-type-2-ev-charging.html</loc></url>
-  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/ev-charging-standards-europe.html</loc></url>
-  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/ev-charging-standards-north-america.html</loc></url>
-  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/how-to-choose-dc-fast-charger.html</loc></url>
-  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/fleet-ev-charging-solutions.html</loc></url>
-  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/home-and-workplace-ev-charging.html</loc></url>
-  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/portable-ev-charging-for-roadside-rescue.html</loc></url>
-  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/oem-ev-charger-private-label-guide.html</loc></url>
-  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/v2l-adapter-and-vehicle-to-load-guide.html</loc></url>
+  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/</loc><priority>1.0</priority></url>
+  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/products.html</loc><priority>0.9</priority></url>
+  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/solutions.html</loc><priority>0.8</priority></url>
+  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/about.html</loc><priority>0.8</priority></url>
+  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/company-profile.html</loc><priority>0.8</priority></url>
+  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/certifications.html</loc><priority>0.8</priority></url>
+  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/cases.html</loc><priority>0.7</priority></url>
+  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/news.html</loc><priority>0.7</priority></url>
+  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/news</loc><priority>0.7</priority></url>
+  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/contact.html</loc><priority>0.8</priority></url>
+  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/news/ac-ev-charger-manufacturer</loc></url>
+  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/news/dc-fast-charging-station-supplier</loc></url>
+  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/news/portable-ev-charger-guide</loc></url>
+  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/news/ev-charging-adapter-supplier</loc></url>
+  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/news/ccs2-to-gbt-adapter-guide</loc></url>
+  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/news/nacs-ev-adapter-guide</loc></url>
+  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/news/type-1-vs-type-2-ev-charging</loc></url>
+  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/news/ev-charging-standards-europe</loc></url>
+  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/news/ev-charging-standards-north-america</loc></url>
+  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/news/how-to-choose-dc-fast-charger</loc></url>
+  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/news/fleet-ev-charging-solutions</loc></url>
+  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/news/home-and-workplace-ev-charging</loc></url>
+  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/news/portable-ev-charging-for-roadside-rescue</loc></url>
+  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/news/oem-ev-charger-private-label-guide</loc></url>
+  <url><loc>https://tarycharge-ev-site-web-2026.pages.dev/news/v2l-adapter-and-vehicle-to-load-guide</loc></url>
 </urlset>
-

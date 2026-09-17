@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>News & Insights | EV Charging Sourcing Guides | ZUOHEN</title>
+<meta name="description" content="EV charging news, sourcing guides and technical insights for distributors, fleets and charging network operators from ZUOHEN.">
+<link rel="canonical" href="/news">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="theme.css">
+<meta property="og:title" content="News & Insights | ZUOHEN EV Charging">
+<meta property="og:description" content="Practical guidance for EV charging distributors, fleets and project teams.">
+<meta property="og:type" content="website">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Blog","name":"ZUOHEN News & Insights","description":"EV charging sourcing guides and technical insights."}</script>
+</head>
+<body>
+<div class="supplier-strip"><div class="container supplier-strip-inner"><span>✓ Anhui, China</span><span>✓ Custom Manufacturer</span><span>✓ 15+ Years</span><span>✓ OEM / ODM Available</span><span>✓ CE · TUV · IP54–IP67</span></div></div>
+<header class="site-header"><div class="container nav-wrap"><a class="brand" href="index.html"><span class="brand-mark">⚡</span><span>ZUOHEN<span class="brand-light">CHARGE</span></span></a><nav><a href="products.html">Products</a><a href="solutions.html">Solutions</a><a class="active" href="news.html">News</a><a href="about.html">About us</a><a class="nav-cta" href="contact.html">Request a quote</a></nav></div></header>
+<main>
+  <section class="page-hero catalog-hero">
+    <div class="container">
+      <p class="eyebrow">ZUOHEN NEWS & INSIGHTS</p>
+      <h1>Charging knowledge for<br><em>better sourcing.</em></h1>
+      <p>Practical guidance on standards, connector selection and equipment sourcing for EV charging distributors, fleets and project teams.</p>
+      <div class="hero-specs page-specs"><span>Standards & compliance</span><span>Connector selection</span><span>Sourcing guides</span><span>Market insights</span></div>
+    </div>
+  </section>
+  <section class="section catalog">
+    <div class="container">
+      <div class="section-heading">
+        <div><p class="eyebrow">LATEST ARTICLES</p><h2>Guides, standards<br><em>and sourcing insight.</em></h2></div>
+        <p class="section-intro">All published articles. Use the resource guides to compare connectors, standards and equipment classes before you specify.</p>
+      </div>
+      <div id="news-grid" class="news-grid" aria-live="polite"><p class="news-loading">Loading articles…</p></div>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="container footer-grid">
+    <div><a class="brand" href="index.html"><span class="brand-mark">⚡</span><span>ZUOHEN<span class="brand-light">CHARGE</span></span></a><p>EV charging equipment for the global transition to electric mobility.</p></div>
+    <div><b>Products</b><a href="products.html?category=AC%20Charging">AC charging</a><a href="products.html?category=DC%20Charging">DC fast charging</a><a href="products.html?category=Portable">Portable chargers</a><a href="products.html?category=Adapter">Adapters</a></div>
+    <div><b>Company</b><a href="about.html">About ZUOHEN</a><a href="company-profile.html">Company profile</a><a href="certifications.html">Certifications</a><a href="cases.html">Success cases</a></div>
+    <div><b>Resources</b><a href="news.html">News &amp; insights</a><a href="solutions.html">Solutions</a><a href="contact.html">Request a quote →</a></div>
+  </div>
+  <div class="container footer-bottom"><span>© 2026 ZUOHEN Charge. All rights reserved.</span><span>Built for global EV charging.</span></div>
+</footer>
+<script>
+(async function(){
+  const grid = document.querySelector('#news-grid');
+  try {
+    const res = await fetch('/api/news');
+    if (!res.ok) throw new Error('unavailable');
+    const items = await res.json();
+    if (!items.length) { grid.innerHTML = '<p class="news-loading">No articles published yet.</p>'; return; }
+    grid.innerHTML = items.map(function(item){
+      return '<a class="news-card" href="' + item.href + '">' +
+        '<span class="news-card-date">' + item.date + '</span>' +
+        '<h3>' + item.title + '</h3>' +
+        '<p>' + item.description + '</p>' +
+        '<span class="news-card-link">Read article →</span>' +
+      '</a>';
+    }).join('');
+  } catch (e) {
+    grid.innerHTML = '<p class="news-loading">Articles are temporarily unavailable. <a href="/news">View the news index</a>.</p>';
+  }
+})();
+</script>
+</body>
+</html>

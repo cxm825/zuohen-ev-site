@@ -7,12 +7,39 @@ Cloudflare Worker with static assets.
 
 ```
 ├─ public/            # Static site files (HTML/CSS/JS/images/products.json)
+│  ├─ theme.css       # Industrial energy theme (loaded after styles.css)
+│  ├─ news.html       # News index (client-renders from /api/news)
+│  ├─ company-profile.html   # Factory, capability, quality control
+│  ├─ certifications.html    # IATF 16949 / ISO / CE / UL 2251 / RoHS / FCC
+│  ├─ cases.html             # Success cases and project workflow
 │  └─ 404.html        # Custom not-found page
 ├─ src/
-│  └─ index.js        # Worker entry, forwards requests to static assets
+│  ├─ index.js        # Worker entry, forwards requests to static assets
+│  └─ news.js         # D1 news routing, /api/news feed, page rendering
 ├─ wrangler.jsonc     # Cloudflare Workers config (assets + 404 handling)
 └─ package.json
 ```
+
+## Pages
+
+| Route | Purpose |
+| --- | --- |
+| `/` | Homepage: hero slider, categories, featured products, full catalog |
+| `/products` | Product catalog with search, category filter and pagination |
+| `/product?id=N` | Product detail |
+| `/solutions` | Application solutions (home, fleet, commercial, mobile) |
+| `/about` | Short company introduction |
+| `/company-profile` | Company profile: facility, capability, quality control |
+| `/certifications` | Certifications and product compliance |
+| `/cases` | Success cases and the inquiry-to-shipment workflow |
+| `/news` | News and insights index (D1-backed) |
+| `/news/<slug>` | Individual article (D1-backed) |
+| `/contact` | Quote request form |
+
+`styles.css` holds the original layout; `theme.css` overrides the palette to the
+industrial energy theme (dark graphite surfaces with an electric-green accent).
+Every page links both, in that order. Removing the `theme.css` link reverts the
+look — no layout rules live in it.
 
 ## Local development
 
@@ -41,8 +68,14 @@ synced idempotently to D1 by its SHA-256 content hash. The deployment script
 runs the asset audit, applies remote migrations, syncs new/changed Markdown,
 and only then deploys the Worker.
 
-News is available at `/news` and `/news/<slug>`. Existing article `.html` URLs
-are also resolved from D1 so old links continue to work.
+News is available at `/news` and `/news/<slug>`. The Worker also exposes
+`/api/news`, a JSON feed used by the static `news.html` index; `news.html`
+307-redirects to `/news`, which is rendered server-side from D1. The 15 legacy
+article `.html` URLs are resolved from D1 as well, so old links and search
+rankings keep working even though those files are no longer in `public/`.
+
+Every page links to `/news` from the main navigation and the footer, so the
+news index has a visible entry point from anywhere on the site.
 
 ## Deploy
 
