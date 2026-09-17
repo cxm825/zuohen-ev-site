@@ -23,6 +23,27 @@ npm run dev
 
 Open http://localhost:8787
 
+## News and D1 setup
+
+Cloudflare calls its SQL database product **D1**. Create one database, copy its
+ID into `wrangler.jsonc` in place of `REPLACE_WITH_D1_DATABASE_ID`, then run:
+
+```bash
+wrangler login
+wrangler d1 create zuohen-news
+npm run db:migrate:local
+npm run news:sync
+```
+
+The source of truth for news is `content/news/*.md`. Each file uses YAML front
+matter (`title`, `description`, `date`, `legacy_path`, optional `image`) and is
+synced idempotently to D1 by its SHA-256 content hash. The deployment script
+runs the asset audit, applies remote migrations, syncs new/changed Markdown,
+and only then deploys the Worker.
+
+News is available at `/news` and `/news/<slug>`. Existing article `.html` URLs
+are also resolved from D1 so old links continue to work.
+
 ## Deploy
 
 ```bash

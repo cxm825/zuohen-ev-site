@@ -39,7 +39,7 @@ function render() {
   const start = (currentPage - 1) * pageSize;
   const shown = filtered.slice(start, start + pageSize);
   grid.innerHTML = shown.map(card).join('') || '<p>No products match your search.</p>';
-  count.textContent = filtered.length ? `Page ${currentPage} of ${totalPages} · Showing ${start + 1}–{start + shown.length} of ${filtered.length} products` : 'No products found';
+  count.textContent = filtered.length ? `Page ${currentPage} of ${totalPages} · Showing ${start + 1}–${start + shown.length} of ${filtered.length} products` : 'No products found';
   const pageItems = [];
   const addPage = page => pageItems.push(`<button type="button" class="page-button ${page === currentPage ? 'active' : ''}" data-page="${page}">${page}</button>`);
   const addEllipsis = () => pageItems.push('<span class="page-ellipsis">…</span>');

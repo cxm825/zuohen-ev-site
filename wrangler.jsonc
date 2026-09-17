@@ -3,6 +3,13 @@
   "name": "zuohen-ev-site",
   "main": "src/index.js",
   "compatibility_date": "2026-09-01",
+  "d1_databases": [
+    {
+      "binding": "NEWS_DB",
+      "database_name": "zuohen-news",
+      "database_id": "REPLACE_WITH_D1_DATABASE_ID"
+    }
+  ],
   "assets": {
     "directory": "./public",
     "binding": "ASSETS",
