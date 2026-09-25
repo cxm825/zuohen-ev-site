@@ -2,6 +2,7 @@
 const pageSize = 16;
 let currentPage = Math.max(1, Number(new URLSearchParams(location.search).get('page')) || 1);
 let activeCategory = new URLSearchParams(location.search).get('category') || 'all';
+const initialQuery = new URLSearchParams(location.search).get('q') || '';
 
 const grid = document.querySelector('#product-grid');
 const search = document.querySelector('#search');
@@ -73,6 +74,7 @@ async function init() {
     const response = await fetch('/products.json');
     products = (await response.json()).map(enrich);
     category.value = activeCategory;
+    if (initialQuery && search) search.value = initialQuery;
     render();
   } catch (error) {
     grid.innerHTML = '<p>Product data is unavailable. Please refresh the page.</p>';

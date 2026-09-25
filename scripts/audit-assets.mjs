@@ -5,6 +5,8 @@ import { existsSync } from 'node:fs';
 const root = path.resolve('public');
 const missing = new Set();
 let refs = 0;
+// Paths the Worker renders dynamically instead of serving as static files.
+const RUNTIME_PATHS = new Set(['/llms.json', '/llms.txt', '/llms-full.txt', '/sitemap.xml', '/news-sitemap.xml', '/news']);
 const files = [];
 async function walk(dir) {
   for (const entry of await fs.readdir(dir, { withFileTypes: true })) {
@@ -17,6 +19,7 @@ async function walk(dir) {
 function check(value, source) {
   if (!value || /^(https?:|data:|mailto:|#|javascript:)/i.test(value)) return;
   const clean = value.split(/[?#]/)[0];
+  if (RUNTIME_PATHS.has(clean)) return;
   if (!/\.(png|jpe?g|gif|webp|svg|ico|css|js|json|xml|html?)$/i.test(clean) && !clean.startsWith('assets/')) return;
   const relative = clean.startsWith('/') ? clean.slice(1) : clean;
   const target = path.normalize(path.join(path.dirname(source), relative));

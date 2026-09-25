@@ -1,0 +1,54 @@
+# ZOHEN Charger
+
+> ZOHEN Charger (Anhui Zuoheng International Trade Co.,Ltd.) is an OEM EV charging manufacturer in Anhui, China. The company builds and exports AC charging stations (7-44 kW), DC fast charging stations (20-400 kW), portable EV chargers (3.5-40 kW), and EV adapters and connectors covering CCS1, CCS2, GB/T, NACS, CHAdeMO, Type 1 and Type 2 standards. Buyers are distributors, fleet operators, charging network operators, installers and project teams in Europe, the Middle East, South America and Southeast Asia. All commercial terms are quotation-based; the site is not a checkout store.
+
+Canonical domain: https://zohencar.online
+Content language: English (en)
+Sales contact: sales@zohencar.online | WhatsApp +86 172 0180 7491
+Company: Anhui Zuoheng International Trade Co.,Ltd., No. 188 Automotive High-Tech Industrial Park, Anhui, China
+Facility: 25,000 m2 manufacturing site, 78 staff, 30+ R&D engineers, 200+ active SKUs, founded 2010
+Certifications: IATF 16949:2016, ISO 9001, ISO 14001, CE, UL 2251, RoHS, FCC, IP54-IP67
+Commercial terms: OEM/ODM available; MOQ, pricing, lead time and samples confirmed by quotation
+
+## Core Pages
+
+- [Homepage](https://zohencar.online/): Company positioning, product categories, featured chargers and inquiry form.
+- [Product Catalog](https://zohencar.online/products.html): 377 EV charging and adapter sourcing options with category filters (AC Charging, DC Charging, Portable, Adapter).
+- [EV Charging Solutions](https://zohencar.online/solutions.html): Application-driven architectures for home and workplace, fleet and logistics, commercial networks, and mobile rescue charging.
+- [Company Profile](https://zohencar.online/company-profile.html): Factory capability, in-house injection molding, 5-axis CNC, robotic welding, surface treatment, assembly and 4-stage quality control.
+- [Certifications & Compliance](https://zohencar.online/certifications.html): Quality management and product compliance certificates, plus the 4-stage verification process.
+- [Success Cases](https://zohencar.online/cases.html): Typical distributor, fleet, portable rescue, adapter market-entry and OEM private-label project scopes.
+- [News & Insights](https://zohencar.online/news): EV charging sourcing guides, connector standard explanations and market insights.
+- [Contact / Request a Quote](https://zohencar.online/contact.html): Project inquiry form for product recommendations and quotation.
+- [About ZOHEN](https://zohencar.online/about.html): Company background, location and positioning.
+
+## Product Guides
+
+- [AC EV Charger Manufacturer](https://zohencar.online/news/ac-ev-charger-manufacturer): Sourcing guide for 7-44 kW AC wallbox and floor-standing charging equipment.
+- [DC Fast Charging Station Supplier](https://zohencar.online/news/dc-fast-charging-station-supplier): Sourcing guide for 20-400 kW commercial DC fast charging stations.
+- [Portable EV Charger Guide](https://zohencar.online/news/portable-ev-charger-guide): Mobile and emergency EV charging equipment selection.
+- [EV Charging Adapter Supplier](https://zohencar.online/news/ev-charging-adapter-supplier): Cross-standard adapter and connector sourcing.
+- [CCS2 to GB/T Adapter Guide](https://zohencar.online/news/ccs2-to-gbt-adapter-guide): Bridging European and Chinese charging standards.
+- [NACS EV Adapter Guide](https://zohencar.online/news/nacs-ev-adapter-guide): North American Charging Standard compatibility.
+- [Type 1 vs Type 2 EV Charging](https://zohencar.online/news/type-1-vs-type-2-ev-charging): Connector comparison for North America, Europe and Asia.
+- [EV Charging Standards in Europe](https://zohencar.online/news/ev-charging-standards-europe): IEC 62196, Type 2 and CCS2 requirements for EU and EEA markets.
+- [EV Charging Standards in North America](https://zohencar.online/news/ev-charging-standards-north-america): SAE J1772, CCS1, NACS and UL requirements.
+- [How to Choose a DC Fast Charger](https://zohencar.online/news/how-to-choose-dc-fast-charger): Power, cabinet and site selection criteria.
+- [Fleet EV Charging Solutions](https://zohencar.online/news/fleet-ev-charging-solutions): Depot charging planning for logistics and delivery fleets.
+- [Home and Workplace EV Charging](https://zohencar.online/news/home-and-workplace-ev-charging): AC charging for residential and workplace parking.
+- [Portable EV Charging for Roadside Rescue](https://zohencar.online/news/portable-ev-charging-for-roadside-rescue): Emergency charging for service vehicles.
+- [OEM EV Charger Private Label Guide](https://zohencar.online/news/oem-ev-charger-private-label-guide): Private-label and ODM program requirements, tooling and packaging.
+- [V2L Adapter and Vehicle-to-Load Guide](https://zohencar.online/news/v2l-adapter-and-vehicle-to-load-guide): Vehicle-to-load adapters for outdoor and backup power.
+
+## Product Categories
+
+- AC Charging: 7-44 kW wallbox and floor-standing AC chargers for home, workplace and light commercial use, with Type 1, Type 2 and GB/T connectors and optional WiFi, APP, RFID and OCPP connectivity.
+- DC Charging: 20-400 kW wall-mounted and floor-standing DC fast charging stations, single or dual gun, with CCS1, CCS2, GB/T, CHAdeMO and NACS connector options.
+- Portable: 3.5-40 kW portable AC and DC chargers for roadside rescue, dealerships, temporary sites and backup charging.
+- Adapter: CCS, GB/T, NACS, CHAdeMO, Type 1 and Type 2 adapters, connectors and V2L accessories.
+
+## Optional
+
+- [robots.txt](https://zohencar.online/robots.txt): Crawling rules and sitemap location.
+- [sitemap.xml](https://zohencar.online/sitemap.xml): Canonical URL list.
+- [News publishing API documentation](https://zohencar.online/docs/api/news-publish.md): Public contract for the authenticated article publishing endpoint.

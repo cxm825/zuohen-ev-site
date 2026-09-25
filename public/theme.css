@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ZUOHEN CHARGE — Industrial Energy Theme (override layer)
+   ZOHEN CHARGER — Industrial Energy Theme (override layer)
    Loaded after styles.css. Shifts the site from pale-blue/mint "clinical"
    to a dark graphite chassis with electric-green power accent — the visual
    language buyers expect from heavy electrical / EV charging hardware.
@@ -485,3 +485,57 @@ footer{background:#080e10!important;color:#c9d9d7!important}
   .stat-band{grid-template-columns:1fr}
   .case-media{height:170px}
 }
+
+/* --------------------------------------------------------------------------
+   Global WhatsApp contact and company contact panels
+   -------------------------------------------------------------------------- */
+.whatsapp-link,.contact-whatsapp{color:var(--lime)!important;font-weight:700;text-decoration:none}
+.whatsapp-link:hover,.contact-whatsapp:hover{color:var(--teal-bright)!important}
+.whatsapp-float{
+  position:fixed;right:18px;bottom:18px;z-index:40;
+  display:grid;grid-template-columns:34px 1fr;grid-template-rows:auto auto;column-gap:9px;align-items:center;
+  min-width:192px;padding:11px 14px;border-radius:10px;
+  background:#0f7a6c;color:#fff;border:1px solid #35d7a466;
+  box-shadow:0 12px 28px #0b111340;text-decoration:none;
+  transition:transform .2s,background .2s,box-shadow .2s;
+}
+.whatsapp-float:hover{transform:translateY(-3px);background:#12a58f;box-shadow:0 16px 32px #0b111350}
+.whatsapp-float>span{grid-row:1/3;display:grid;place-items:center;width:30px;height:30px;border:2px solid #fff;border-radius:50%;font-size:20px;line-height:1}
+.whatsapp-float b{font:600 13px 'Space Grotesk';line-height:1.2}
+.whatsapp-float small{font-size:10px;color:#d9f5eb;line-height:1.25;margin-top:3px}
+.company-contact-panel{background:var(--cream)!important}
+.company-details{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--line);background:#fff;border-radius:12px;overflow:hidden}
+.company-details>span{padding:23px 20px;border-right:1px solid var(--line);color:var(--muted);line-height:1.5;font-size:13px}
+.company-details>span:last-child{border-right:0}
+.company-details b{display:block;color:var(--ink);font:600 12px 'Space Grotesk';margin-bottom:7px;text-transform:uppercase;letter-spacing:.05em}
+.company-contact-strip{background:#111d20;border-bottom:1px solid #26383d;color:#fff;padding:25px 0}
+.company-contact-strip-inner{display:grid;grid-template-columns:1.1fr 1.3fr auto;align-items:center;gap:30px}
+.company-contact-strip .eyebrow{display:block;color:var(--lime)!important;font-size:9px;margin:0 0 6px}
+.company-contact-strip strong{display:block;font:600 15px 'Space Grotesk';line-height:1.3}
+.company-contact-strip small{display:block;color:#9db1b3;font-size:11px;margin-top:3px}
+.company-contact-strip .button{white-space:nowrap}
+@media(max-width:850px){
+  .company-details{grid-template-columns:repeat(2,1fr)}
+  .company-details>span{border-right:0}
+  .company-details>span:not(:last-child){border-bottom:1px solid var(--line)}
+  .company-contact-strip-inner{grid-template-columns:1fr 1fr}
+  .company-contact-strip-inner .button{grid-column:1/-1;justify-self:start}
+}
+@media(max-width:640px){
+  .whatsapp-float{right:10px;bottom:76px;min-width:0;width:48px;height:48px;padding:0;border-radius:50%;display:grid;place-items:center}
+  .whatsapp-float>span{width:27px;height:27px;grid-row:auto;font-size:18px}
+  .whatsapp-float b,.whatsapp-float small{display:none}
+  .company-details{grid-template-columns:1fr}
+  .company-details>span{border-right:0!important;border-bottom:1px solid var(--line)}
+  .company-details>span:last-child{border-bottom:0}
+  .company-contact-strip-inner{grid-template-columns:1fr;gap:15px}
+  .company-contact-strip-inner .button{grid-column:auto;width:100%}
+}
+
+
+/* Header search form (homepage) */
+form.store-search button{border:0;background:none;color:#7f9496;font-size:17px;padding:0;line-height:1;cursor:pointer}
+form.store-search button:hover{color:var(--lime)}
+
+/* Catalog result count (products page standalone span) */
+#result-count{display:block;width:100%;text-align:center;color:var(--muted);font-size:12px;margin-top:10px}

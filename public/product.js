@@ -22,8 +22,13 @@ async function init() {
     if (!response.ok) throw new Error('Product data unavailable');
     const raw = await response.json();
     const requested = Number(new URLSearchParams(location.search).get('id'));
-    const index = Number.isInteger(requested) && requested >= 0 && requested < raw.length ? requested : 0;
-    const product = enrich(raw[index], index);
+    const matched = raw.find(item => Number(item.id) === requested);
+    if (!matched) {
+      root.innerHTML = '<div class="buyer-note"><strong>Product reference unavailable</strong><span>This item is no longer in our catalog. Browse the products page or contact ZOHEN for sourcing support.</span></div>';
+      document.title = 'Product not found | ZOHEN';
+      return;
+    }
+    const product = enrich(matched, requested);
     const image = product.image && product.image.startsWith('assets/') ? product.image : '';
     const related = raw.map(enrich).filter(item => item.id !== product.id && item.category === product.category).slice(0, 4);
     const title = escapeHtml(product.displayTitle);
@@ -33,7 +38,7 @@ async function init() {
     const power = escapeHtml(product.power || 'Configuration-dependent');
     root.innerHTML = `
       <p class="eyebrow">HOME / PRODUCTS / ${category.toUpperCase()}</p>
-      <div class="buyer-note"><strong>Buyer sourcing reference</strong><span>This page is for product discovery and project qualification, not online checkout. Confirm final specifications with ZUOHEN engineering.</span></div>
+      <div class="buyer-note"><strong>Buyer sourcing reference</strong><span>This page is for product discovery and project qualification, not online checkout. Confirm final specifications with ZOHEN engineering.</span></div>
       <div class="detail-grid">
         <div class="detail-image">${image ? `<img src="/${image}" alt="${title}" onerror="this.closest('.detail-image').remove()">` : ''}</div>
         <div class="detail-copy-column">
@@ -52,11 +57,11 @@ async function init() {
         <section><p class="eyebrow">TO CONFIRM WITH ENGINEERING</p><ul>${referenceList(['Input voltage, output current and efficiency', 'Protection rating, operating temperature and certifications', 'Lead time, sample policy and destination-market compliance'])}</ul></section>
       </div>
       <section class="related"><div class="section-heading"><div><p class="eyebrow">RELATED SOURCING OPTIONS</p><h2>More ${category.toLowerCase()} products.</h2></div><a class="text-link" href="products.html">View catalog →</a></div><div class="product-grid">${related.map(item => `<article class="product-card"><div class="product-image"><img src="/${item.image}" alt="${escapeHtml(item.displayTitle)}"></div><div class="product-body"><span class="tag">${escapeHtml(item.category)}</span><h3>${escapeHtml(item.displayTitle)}</h3><a class="product-link" href="product.html?id=${item.id}">View sourcing reference →</a></div></article>`).join('')}</div></section>`;
-    document.title = `${product.displayTitle} | ZUOHEN Sourcing Reference`;
-    const schema = { '@context': 'https://schema.org', '@type': 'Product', name: product.displayTitle, description: `Buyer sourcing reference for ${product.category.toLowerCase()} buyers. Confirm final configuration with ZUOHEN engineering.`, image: image ? [`${location.origin}/${image}`] : [], sku: product.slug || `zuohen-${product.id}`, brand: { '@type': 'Brand', name: 'ZUOHEN' }, category: product.category, url: location.href };
+    document.title = `${product.displayTitle} | ZOHEN Sourcing Reference`;
+    const schema = { '@context': 'https://schema.org', '@type': 'Product', name: product.displayTitle, description: `Buyer sourcing reference for ${product.category.toLowerCase()} buyers. Confirm final configuration with ZOHEN engineering.`, image: image ? [`${location.origin}/${image}`] : [], sku: product.slug || `zohen-${product.id}`, brand: { '@type': 'Brand', name: 'ZOHEN' }, category: product.category, url: location.href };
     const script = document.createElement('script'); script.type = 'application/ld+json'; script.textContent = JSON.stringify(schema); document.head.appendChild(script);
   } catch (error) {
-    root.innerHTML = '<div class="buyer-note"><strong>Product reference unavailable</strong><span>Please return to the catalog or contact ZUOHEN for sourcing support.</span></div>';
+    root.innerHTML = '<div class="buyer-note"><strong>Product reference unavailable</strong><span>Please return to the catalog or contact ZOHEN for sourcing support.</span></div>';
   }
 }
 init();

@@ -1,6 +1,6 @@
-# ZUOHEN EV Charging Site (Cloudflare Workers)
+# ZOHEN EV Charging Site (Cloudflare Workers)
 
-Static marketing site for ZUOHEN EV charging equipment, deployed as a
+Static marketing site for ZOHEN EV charging equipment, deployed as a
 Cloudflare Worker with static assets.
 
 ## Structure
@@ -35,6 +35,24 @@ Cloudflare Worker with static assets.
 | `/news` | News and insights index (D1-backed) |
 | `/news/<slug>` | Individual article (D1-backed) |
 | `/contact` | Quote request form |
+| `/admin` | Admin dashboard: login required (`ADMIN_PASSWORD` secret) |
+
+### Inquiries and admin dashboard
+
+Inquiry forms on the homepage and contact page POST to `/api/inquiries`, which
+stores every submission in the D1 `inquiries` table (with a honeypot field and
+server-side validation for spam/basic hygiene). Admins manage leads at `/admin`:
+
+- Sign in with the Worker secret `ADMIN_PASSWORD` (set via
+  `npx wrangler secret put ADMIN_PASSWORD`; never stored in code or Git).
+- Sessions are random 32-byte tokens stored hashed; cookies are HttpOnly,
+  Secure, SameSite=Strict and signed, and expire after 12 hours.
+- Failed logins are rate limited per client IP (8 attempts, then a 15-minute lock).
+- The dashboard supports status workflow (New / In progress / Quoted / Won /
+  Closed), free-text search, status filtering, pagination and CSV export.
+
+Relevant routes live in `src/inquiries.js`; the schema is
+`migrations/0002_inquiries.sql`.
 
 `styles.css` holds the original layout; `theme.css` overrides the palette to the
 industrial energy theme (dark graphite surfaces with an electric-green accent).
@@ -83,9 +101,58 @@ news index has a visible entry point from anywhere on the site.
 npm run deploy
 ```
 
+Google Analytics 4 is wired in with measurement ID `G-G6YZP4ZDZ8`
+(property `zohencar.online`, stream `https://zohencar.online`): the gtag.js
+snippet is embedded in every public page (`public/*.html` and the dynamic
+news layout in `src/news.js`). The inquiry forms report a `generate_lead`
+event on successful submission — mark it as a key event in the GA4 admin to
+track quote conversions.
+
 First run requires `wrangler login` (Cloudflare account). After deploying,
 bind a custom domain via the Cloudflare Dashboard (Workers → your worker →
 Domains & Routes) if needed.
+
+## SEO and GEO (generative engine optimisation)
+
+### Crawling and indexing
+
+| Endpoint | Served by | Purpose |
+| --- | --- | --- |
+| `/robots.txt` | static | Crawl rules, explicit AI-crawler allowances, both sitemaps |
+| `/sitemap.xml` | `handleSitemap` | `public/sitemap.xml` merged with every API-published article |
+| `/news-sitemap.xml` | `handleNewsSitemap` | Article-only sitemap with real `<lastmod>` dates |
+| `/llms.txt` | `handleLlms` | [llms.txt](https://llmstxt.org) index: curated `public/llms.txt` plus published articles |
+| `/llms-full.txt` | `handleLlmsFull` | Plain-text corpus of every article, generated on request |
+| `/llms.json` | `handleLlmsJson` | Machine-readable article index |
+
+`public/llms.txt` is the hand-curated entry point; the Worker rewrites its
+`## Product Guides` section at request time so newly published articles appear
+without a redeploy. `public/sitemap.xml` holds only the core static pages so the
+article list never goes stale — the Worker appends them from D1.
+
+### Structured data
+
+Every static page carries canonical, `robots`, Open Graph, Twitter Card and
+JSON-LD tags. The dynamic news layout in `src/news.js` emits a `@graph` with
+`Organization`, `WebSite`, `BlogPosting` (headline, dates, word count, author,
+publisher), `BreadcrumbList` and `ItemList` nodes per page. All JSON-LD uses a
+shared `@id` (`https://zohencar.online/#organization`) so the entity graph
+resolves consistently across pages.
+
+### IndexNow and search pings
+
+`POST /api/news` fans out to IndexNow and the Google/Bing sitemap ping after a
+successful publish (best effort, `ctx.waitUntil`, 5 second timeouts — a ping
+failure never fails the publish). Set the key secret to enable IndexNow:
+
+```bash
+npx wrangler secret put INDEXNOW_KEY   # same value as public/<key>.txt
+```
+
+Without `INDEXNOW_KEY` only the sitemap pings run. `npm run seo:indexnow`
+submits the static URL list; `npm run seo:indexnow:live` first fetches the
+deployed sitemap so API-published articles are included. `npm run deploy` ends
+with the live variant.
 
 ## Notes
 
