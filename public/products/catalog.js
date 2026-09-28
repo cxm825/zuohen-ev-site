@@ -28,7 +28,7 @@ function card(product) {
   const imageMarkup = image
     ? `<img loading="lazy" src="${image}" alt="${safeTitle}" onerror="this.closest('.product-card').remove();document.querySelector('#result-count').textContent='Some unavailable products were hidden';">`
     : '';
-  return `<article class="product-card"><div class="product-image">${imageMarkup}</div><div class="product-body"><span class="tag">${product.category}</span><h3>${product.title}</h3><p class="product-info">${product.power || 'Global connector options'}<br>${product.price}${product.moq ? ` · ${product.moq}` : ''}</p><a class="product-link" href="product.html?id=${product.id}">View product details →</a></div></article>`;
+  return `<article class="product-card"><div class="product-image">${imageMarkup}</div><div class="product-body"><span class="tag">${product.category}</span><h3>${product.title}</h3><p class="product-info">${product.power || 'Global connector options'}<br>${product.price}${product.moq ? ` · ${product.moq}` : ''}</p><a class="product-link" href="${product.slug ? `/product/${encodeURIComponent(product.slug)}` : `/product.html?id=${product.id}`}">View product details →</a></div></article>`;
 }
 
 function render() {

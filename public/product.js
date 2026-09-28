@@ -16,16 +16,42 @@ function referenceList(items) {
   return items.map(item => `<li>${escapeHtml(item)}</li>`).join('');
 }
 
+// Clean URLs: /product/<slug>; legacy ?id= links 301 to the slug form server-side.
+function productPath(product) {
+  if (product.slug) return `/product/${encodeURIComponent(product.slug)}`;
+  return `/product.html?id=${encodeURIComponent(product.id)}`;
+}
+
+function upsertHead(tagName, attributes) {
+  const selector = Object.entries(attributes).map(([name, value]) => `[${name}="${value}"]`).join('');
+  let element = document.head.querySelector(`${tagName}${selector}`);
+  if (!element) {
+    element = document.createElement(tagName);
+    for (const [name, value] of Object.entries(attributes)) element.setAttribute(name, value);
+    document.head.appendChild(element);
+  }
+  return element;
+}
+
+function setHeadValue(tagName, attributes, valueAttribute, value) {
+  const element = upsertHead(tagName, attributes);
+  element.setAttribute(valueAttribute, value);
+}
+
 async function init() {
   try {
     const response = await fetch('/products.json');
     if (!response.ok) throw new Error('Product data unavailable');
     const raw = await response.json();
+    const slugFromPath = decodeURIComponent((location.pathname.match(/^\/product\/([^/]+)/) || [])[1] || '');
     const requested = Number(new URLSearchParams(location.search).get('id'));
-    const matched = raw.find(item => Number(item.id) === requested);
+    const matched = slugFromPath
+      ? raw.find(item => item.slug === slugFromPath)
+      : raw.find(item => Number(item.id) === requested);
     if (!matched) {
       root.innerHTML = '<div class="buyer-note"><strong>Product reference unavailable</strong><span>This item is no longer in our catalog. Browse the products page or contact ZOHEN for sourcing support.</span></div>';
       document.title = 'Product not found | ZOHEN';
+      setHeadValue('meta', { name: 'robots' }, 'content', 'noindex, follow');
       return;
     }
     const product = enrich(matched, requested);
@@ -48,7 +74,7 @@ async function init() {
           <div class="detail-stats"><div><b>${power || 'Available by request'}</b><span>Power / input reference</span></div><div><b>${standards}</b><span>Connector standards</span></div><div><b>Confirm with sales</b><span>Commercial terms</span></div></div>
           <h3>Product overview</h3>
           <p class="detail-copy">This ${category.toLowerCase()} product is presented as a sourcing reference for distributors, fleet operators, installers and charging projects. Use the inquiry form to confirm the exact model, electrical configuration, connector, cable length, compliance documents and destination-market requirements.</p>
-          <a class="button primary" href="contact.html?product=${encodeURIComponent(product.displayTitle)}">Request a quotation →</a>
+          <a class="button primary" href="/contact?product=${encodeURIComponent(product.displayTitle)}">Request a quotation →</a>
         </div>
       </div>
       <div class="detail-sections">
@@ -56,9 +82,15 @@ async function init() {
         <section><p class="eyebrow">OPTIONAL CONFIGURATIONS</p><ul>${referenceList(['OEM / ODM branding and packaging', 'Cable length, connector and housing options', 'Communication, payment and installation configuration'])}</ul></section>
         <section><p class="eyebrow">TO CONFIRM WITH ENGINEERING</p><ul>${referenceList(['Input voltage, output current and efficiency', 'Protection rating, operating temperature and certifications', 'Lead time, sample policy and destination-market compliance'])}</ul></section>
       </div>
-      <section class="related"><div class="section-heading"><div><p class="eyebrow">RELATED SOURCING OPTIONS</p><h2>More ${category.toLowerCase()} products.</h2></div><a class="text-link" href="products.html">View catalog →</a></div><div class="product-grid">${related.map(item => `<article class="product-card"><div class="product-image"><img src="/${item.image}" alt="${escapeHtml(item.displayTitle)}"></div><div class="product-body"><span class="tag">${escapeHtml(item.category)}</span><h3>${escapeHtml(item.displayTitle)}</h3><a class="product-link" href="product.html?id=${item.id}">View sourcing reference →</a></div></article>`).join('')}</div></section>`;
+      <section class="related"><div class="section-heading"><div><p class="eyebrow">RELATED SOURCING OPTIONS</p><h2>More ${category.toLowerCase()} products.</h2></div><a class="text-link" href="/products">View catalog →</a></div><div class="product-grid">${related.map(item => `<article class="product-card"><div class="product-image"><img src="/${item.image}" alt="${escapeHtml(item.displayTitle)}"></div><div class="product-body"><span class="tag">${escapeHtml(item.category)}</span><h3>${escapeHtml(item.displayTitle)}</h3><a class="product-link" href="${productPath(item)}">View sourcing reference →</a></div></article>`).join('')}</div></section>`;
     document.title = `${product.displayTitle} | ZOHEN Sourcing Reference`;
-    const schema = { '@context': 'https://schema.org', '@type': 'Product', name: product.displayTitle, description: `Buyer sourcing reference for ${product.category.toLowerCase()} buyers. Confirm final configuration with ZOHEN engineering.`, image: image ? [`${location.origin}/${image}`] : [], sku: product.slug || `zohen-${product.id}`, brand: { '@type': 'Brand', name: 'ZOHEN' }, category: product.category, url: location.href };
+    const canonicalUrl = `${location.origin}${productPath(product)}`;
+    const description = (product.listInfo || `Sourcing reference for the ${product.displayTitle} from ZOHEN EV charging.`).slice(0, 300);
+    setHeadValue('link', { rel: 'canonical' }, 'href', canonicalUrl);
+    setHeadValue('meta', { property: 'og:url' }, 'content', canonicalUrl);
+    setHeadValue('meta', { name: 'description' }, 'content', description);
+    setHeadValue('meta', { property: 'og:description' }, 'content', description);
+    const schema = { '@context': 'https://schema.org', '@type': 'Product', name: product.displayTitle, description: `Buyer sourcing reference for ${product.category.toLowerCase()} buyers. Confirm final configuration with ZOHEN engineering.`, image: image ? [`${location.origin}/${image}`] : [], sku: product.slug || `zohen-${product.id}`, brand: { '@type': 'Brand', name: 'ZOHEN' }, category: product.category, url: canonicalUrl };
     const script = document.createElement('script'); script.type = 'application/ld+json'; script.textContent = JSON.stringify(schema); document.head.appendChild(script);
   } catch (error) {
     root.innerHTML = '<div class="buyer-note"><strong>Product reference unavailable</strong><span>Please return to the catalog or contact ZOHEN for sourcing support.</span></div>';

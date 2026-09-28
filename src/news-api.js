@@ -1,10 +1,13 @@
 // news-api.js — POST /api/news: third-party news publishing with one fixed
 // token (NEWS_API_KEY). Same contract as zohencar.com: published rows go live
 // immediately on /news, /news/<slug>, the /api/news feed and the sitemaps,
-// which this module also merges with the static public/sitemap.xml.
+// which this module also merges with the static public/sitemap.xml and the
+// product catalog.
 //
 // Publishing also fans out to the IndexNow endpoints (Bing, Yandex, Seznam,
 // Naver) and Google's sitemap ping, honouring INDEXNOW_KEY when configured.
+
+import { productSlugs } from './products.js';
 
 const NEWS_KIND = 'Industry Update';
 const NEWS_AUTHOR = 'ZOHEN Charger Newsroom';
@@ -191,20 +194,27 @@ export async function handleNewsPublish(request, env, ctx) {
 export async function handleSitemap(request, env) {
   const staticResponse = await env.ASSETS.fetch(new Request(new URL('/sitemap.xml', request.url)));
   let xml = staticResponse.status === 200 ? await staticResponse.text() : null;
-  if (xml === null) {
+  if (xml === null || !xml.includes('</urlset>')) {
     xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n</urlset>';
   }
-  if (!env.NEWS_DB) return staticResponse;
 
-  const { results } = await env.NEWS_DB.prepare('SELECT slug FROM news ORDER BY published_at DESC, id DESC').all();
   const origin = siteOrigin(request);
   const entries = [];
-  for (const item of results) {
-    const loc = `${origin}/news/${encodeURIComponent(item.slug)}`;
-    if (xml.includes(`${loc}</loc>`)) continue;
-    entries.push(`  <url><loc>${loc}</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>`);
+
+  if (env.NEWS_DB) {
+    const { results } = await env.NEWS_DB.prepare('SELECT slug FROM news ORDER BY published_at DESC, id DESC').all();
+    for (const item of results) {
+      const loc = `${origin}/news/${encodeURIComponent(item.slug)}`;
+      if (xml.includes(`${loc}</loc>`)) continue;
+      entries.push(`  <url><loc>${loc}</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>`);
+    }
   }
-  if (entries.length === 0) return staticResponse;
+
+  for (const slug of await productSlugs(env, request)) {
+    entries.push(`  <url><loc>${origin}/product/${encodeURIComponent(slug)}</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>`);
+  }
+
+  if (entries.length === 0) return xmlResponse(xml);
 
   xml = xml.replace('</urlset>', `${entries.join('\n')}\n</urlset>`);
   return xmlResponse(xml);
